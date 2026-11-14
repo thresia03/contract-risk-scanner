@@ -1,7 +1,6 @@
 ---
 name: obligation-agent
-description: Extracts key obligations for each party from a contract. Use when
-the coordinator needs the Key Obligations section.
+description: Extracts key obligations for each party from a contract. Use when the coordinator needs the Key Obligations section.
 tools: Read
 model: haiku
 ---

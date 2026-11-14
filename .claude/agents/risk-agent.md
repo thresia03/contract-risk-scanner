@@ -1,7 +1,6 @@
 ---
 name: risk-agent
-description: Rates the overall risk of a contract and writes a critical summary.
-Use when the coordinator needs the Risk Rating section.
+description: Rates the overall risk of a contract and writes a critical summary. Use when the coordinator needs the Risk Rating section.
 tools: Read
 model: haiku
 ---
