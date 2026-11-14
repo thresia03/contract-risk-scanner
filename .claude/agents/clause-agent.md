@@ -1,7 +1,6 @@
 ---
 name: clause-agent
-description: Scans a contract for risky clauses and returns a severity-rated
-findings table. Use when the coordinator needs the P1/P2/P3 clause sections.
+description: Scans a contract for risky clauses and returns a severity-rated findings table. Use when the coordinator needs the P1/P2/P3 clause sections.
 tools: Read
 model: haiku
 ---
