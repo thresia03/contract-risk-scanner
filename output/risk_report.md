@@ -1,62 +1,60 @@
 # Contract Risk Report — TechVendor Ltd. (input/sample_contract.txt)
 
 ## Risk Rating
-**High** — Section 5.1 irrevocably assigns all Customer Data to Vendor, and Section 6.2 leaves Customer's liability unlimited, both P1 findings.
+**High**: Section 5.1 irrevocably assigns all Customer Data to Vendor, which is a P1 unilateral data assignment, and the contract also contains other P1 clauses (7-day auto-renewal notice in 3.2 and unlimited Customer liability in 6.2).
 
 ### Critical Summary
-The most dangerous clause is Section 5.1, which irrevocably assigns all Customer Data uploaded to or generated through the Services to Vendor, and Section 5.2 lets Vendor commercialise that data during and after the term without notice or compensation. The most important customer obligation is Section 3.2, which auto-renews the Agreement for 12-month terms unless Customer gives non-renewal notice at least seven days before term end, and binds Customer to the full renewal fee if it does not. Before signing, Customer should strike or narrow the Section 5.1 data assignment and extend the non-renewal notice period in Section 3.2.
+The most dangerous clause is Section 5.1, which irrevocably assigns all Customer Data to Vendor, and Section 5.2 lets Vendor commercialise that data during and after the term without notice or compensation. The most important Customer obligation is under Section 3.2, which requires written non-renewal notice at least seven days before the end of the current term, failing which Customer is bound to the full renewal fee. Before signing, strike the assignment in Section 5.1 and limit Vendor's rights in Customer Data to what is needed to provide the Services.
 
 ## P1 Critical Clauses
-| Clause type | Excerpt (max 30 words) | Risk explanation |
-|---|---|---|
-| Auto-renewal without adequate notice (3.2) | "this Agreement shall automatically renew for successive periods of twelve (12) months unless Customer provides written notice of non-renewal at least seven (7) days prior" | Non-renewal notice is due only 7 days before term end. Failure to give timely notice "shall bind Customer to the full renewal fee." |
-| Uncapped liability (6.2) | "Customer's liability to Vendor ... shall be unlimited and shall include all direct and indirect losses, costs, and expenses incurred by Vendor." | Customer's liability is stated as unlimited and includes indirect losses. No cap is stated. |
-| Limitation of Vendor liability (6.1) | "Vendor's liability to Customer ... is limited to the extent expressly stated in this Section." | Section 6 states no monetary cap for Vendor. Vendor also excludes "loss of data," which is not excluded for Customer under 6.2. |
-| Unilateral data assignment to vendor (5.1) | "All data, content, records, and information uploaded to or generated through the Services by Customer or its users ("Customer Data") is hereby irrevocably assigned to Vendor." | Customer Data is irrevocably assigned to Vendor, with no reversion or return stated. |
-| Data use rights without notice or compensation (5.2) | "Vendor may use, analyse, aggregate, license, and commercialise Customer Data for analytics, product development, benchmarking, and any other business purpose" | Vendor may use and license Customer Data for any business purpose during and after the term. The clause states this occurs "without further notice or compensation to Customer." |
-| Unilateral IP assignment to vendor (8) | "Vendor retains all rights, title, and interest in the Services, including all improvements and derivative works." | Improvements and derivative works are retained by Vendor. Customer receives only a "limited, non-exclusive, non-transferable right to access the Services during the term." |
-| Punitive late-payment penalty (2.1) | "Late amounts accrue interest at 1.5% per month." | Stated rate is 1.5% per month on late amounts. Classified here as a penalty under the P1 taxonomy. |
+| Clause type | Excerpt | Risk explanation | Confidence |
+|---|---|---|---|
+| Auto-renewal without adequate notice | "shall automatically renew for successive periods of twelve (12) months unless Customer provides written notice of non-renewal at least seven (7) days prior to the end of the then-current term" | Non-renewal notice is only seven days before term end, and missed notice binds Customer to the full renewal fee (3.2). A 12-month renewal is triggered with a short notice window. | High — renewal and notice period are stated explicitly |
+| Uncapped liability | "Customer's liability to Vendor arising out of this Agreement, whether in contract, tort, or otherwise, shall be unlimited" | Customer's liability is unlimited under any cause of action, and 6.2 adds all direct and indirect losses, costs, and expenses. Vendor's liability has no stated cap (6.1). | High — 6.2 expressly states unlimited liability |
+| Unilateral data assignment to vendor | "All data, content, records, and information uploaded to or generated through the Services by Customer or its users ("Customer Data") is hereby irrevocably assigned to Vendor." | Customer Data is irrevocably assigned to Vendor by this clause alone, with no reciprocal grant back to Customer. Customer keeps no ownership of its uploaded data (5.1). | High — "irrevocably assigned" is explicit |
+| Punitive penalty (late payment interest) | "Late amounts accrue interest at 1.5% per month." | The stated rate is 1.5% per month, which is about 18% per year, on any late amount. Whether this is punitive is a judgement, so the classification is less certain. | Medium — rate is explicit, but the punitive characterisation is interpretive |
 
 ## P2 Major Clauses
-| Clause type | Excerpt (max 30 words) | Risk explanation |
-|---|---|---|
-| Price escalation trigger (2.2) | "Vendor may increase the subscription fees by up to fifteen percent (15%) in each contract year, effective upon written notice to Customer." | Vendor may raise fees up to 15% each contract year. The clause adds that increases take effect "without the need for Customer's consent or approval." |
-| Broad indemnification (6.3) | "Customer shall indemnify and hold harmless Vendor against all claims arising from Customer's use of the Services." | Customer indemnifies Vendor against "all claims" arising from its use of the Services. No cap or carve-out is stated. |
-| Customer data ownership ambiguity (5.1) | "Customer retains no further rights in data once submitted, as set out below." | The clause does not define which rights Customer retains. It conflicts with the irrevocable assignment stated in the next sentence of 5.1. |
-| Exclusivity | — | None found |
+| Clause type | Excerpt | Risk explanation | Confidence |
+|---|---|---|---|
+| Price escalation trigger | "Vendor may increase the subscription fees by up to fifteen percent (15%) in each contract year, effective upon written notice to Customer." | Vendor may raise fees by up to 15% each contract year on notice alone. Customer's consent is not required (2.2). | High — percentage, frequency, and no-consent language are explicit |
+| Customer data ownership ambiguity | "Vendor may use, analyse, aggregate, license, and commercialise Customer Data for analytics, product development, benchmarking, and any other business purpose, during and after the term of this Agreement" | Vendor may use and commercialise Customer Data for any business purpose, during and after the term, without notice or compensation (5.2). This conflicts with 5.1's statement that Customer "retains no further rights in data," so the ownership position is unclear. | High — 5.1 and 5.2 contain the stated terms and their conflict is visible in the text |
+| Broad indemnification | "Customer shall indemnify and hold harmless Vendor against all claims arising from Customer's use of the Services." | Customer indemnifies Vendor against all claims arising from Customer's use, with no reciprocal Vendor indemnity and no stated cap (6.3). | High — indemnity scope and one-way direction are explicit |
+| Asymmetric limitation of liability | "Vendor's liability to Customer under or in connection with this Agreement is limited to the extent expressly stated in this Section." | The clause refers to a limit that is not stated in Section 6. It also excludes loss of data and consequential loss for Vendor (6.1), while Customer's liability is unlimited (6.2). | Medium — the reference to an unstated limit is clear, but its effect depends on how a court would read it |
+| Asymmetric assignment | "Neither party may assign this Agreement without the other's consent, except Vendor may assign it to an affiliate or successor." | Vendor may assign to an affiliate or successor without Customer consent. Customer has no equivalent right (11). | High — the one-sided exception is explicit |
 
 ## P3 Minor Clauses
-| Clause type | Excerpt (max 30 words) | Risk explanation |
-|---|---|---|
-| Termination-for-convenience timeline (4.1) | "Either party may terminate this Agreement for convenience by giving thirty (30) days' prior written notice to the other party." | Mutual right to terminate for convenience on 30 days' written notice. |
-| Cure period for breach termination (4.2) | "fails to cure such breach within fifteen (15) days of notice." | Immediate termination right for material breach applies if the breach is not cured within 15 days of notice. |
-| Refund and termination payment terms (4.3) | "No refunds shall be due for prepaid fees." | Prepaid fees are non-refundable on termination. Customer must pay all fees accrued through the termination date. |
-| Governing law (10) | "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, United States" | Delaware law governs, without regard to its conflict of laws principles. |
-| Dispute resolution forum (10) | "The parties submit to the exclusive jurisdiction of the state and federal courts located in Delaware." | Disputes must be heard exclusively in Delaware state or federal courts. |
+| Clause type | Excerpt | Risk explanation | Confidence |
+|---|---|---|---|
+| Termination for convenience timeline | "Either party may terminate this Agreement for convenience by giving thirty (30) days' prior written notice to the other party." | Either party, including Vendor, may exit on 30 days' notice. This sits alongside the 12-month term and the 15% price-adjustment right, and prepaid fees are not refundable (4.3). | High — notice period is explicit |
+| Cure period for breach termination | "Either party may terminate immediately upon written notice if the other party materially breaches this Agreement and fails to cure such breach within fifteen (15) days of notice." | Termination for material breach requires a 15-day cure period. The clause does not define "materially breaches." | High — cure period and immediate termination are explicit |
+| Governing law | "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, United States, without regard to its conflict of laws principles." | Delaware law governs the Agreement. Vendor is described as a company registered in England and Wales, so this is a cross-border choice. | High — governing law is expressly stated |
+| Dispute resolution forum | "The parties submit to the exclusive jurisdiction of the state and federal courts located in Delaware." | Disputes must go to Delaware state or federal courts, on an exclusive basis. No arbitration or alternative dispute resolution is provided. | High — exclusive forum is expressly stated |
 
 ## Key Obligations
+
 ### Acme Corp
-- Pay the annual subscription fee set out in Schedule B within thirty (30) days of receipt of each invoice (cl. 2.1).
-- Late amounts accrue interest at 1.5% per month (cl. 2.1).
-- Give written notice of non-renewal at least seven (7) days before the end of the then-current term; failure to do so binds Acme Corp to the full renewal fee (cl. 3.2).
-- Pay all fees accrued through the effective date of termination; no refunds are due for prepaid fees (cl. 4.3).
-- Indemnify and hold harmless TechVendor Ltd. against all claims arising from Acme Corp's use of the Services (cl. 6.3).
-- Liability to TechVendor Ltd. is unlimited and includes all direct and indirect losses, costs, and expenses incurred by TechVendor Ltd. (cl. 6.2).
-- Keep TechVendor Ltd.'s confidential information confidential and use it solely to perform obligations under the Agreement; this survives three (3) years after termination (cl. 7).
-- All Customer Data is irrevocably assigned to TechVendor Ltd. (cl. 5.1).
+- Pay the annual subscription fee set out in Schedule B within thirty (30) days of receipt of each invoice; late amounts accrue interest at 1.5% per month (2.1).
+- Give written notice of non-renewal at least seven (7) days before the end of the then-current term; failure to do so binds Customer to the full renewal fee (3.2).
+- Pay all fees accrued through the effective date of termination (4.3).
+- Indemnify and hold harmless Vendor against all claims arising from Customer's use of the Services (6.3).
+- Bear unlimited liability to Vendor under or in connection with the Agreement, including all direct and indirect losses, costs, and expenses incurred by Vendor (6.2).
+- Keep confidential all non-public information disclosed by Vendor that is marked confidential or would reasonably be understood to be confidential, and use it solely to perform its obligations under the Agreement; this survives for three (3) years after termination (7).
+- Not assign the Agreement without Vendor's consent (11).
+- Make any amendment to the Agreement in writing and signed by both parties (11).
 
 ### TechVendor Ltd.
-- Provide Acme Corp with access to the cloud-based workflow automation platform in accordance with the service descriptions in Schedule A (cl. 1).
-- Use commercially reasonable efforts to make the Services available 99.5% of the time in any calendar month, excluding scheduled maintenance (cl. 1).
-- Keep Acme Corp's confidential information confidential and use it solely to perform obligations under the Agreement; this survives three (3) years after termination (cl. 7).
-- Not assign the Agreement without Acme Corp's consent, except that it may assign to an affiliate or successor (cl. 11).
-- Amendments to the Agreement must be in writing and signed by both parties (cl. 11).
+- Provide Customer with access to its cloud-based workflow automation platform (the "Services") in accordance with the service descriptions in Schedule A (1).
+- Use commercially reasonable efforts to make the Services available 99.5% of the time in any calendar month, excluding scheduled maintenance (1).
+- Keep confidential all non-public information disclosed by Customer that is marked confidential or would reasonably be understood to be confidential, and use it solely to perform its obligations under the Agreement; this survives for three (3) years after termination (7).
+- Not assign the Agreement without Customer's consent, except that Vendor may assign it to an affiliate or successor (11).
+- Make any amendment to the Agreement in writing and signed by both parties (11).
 
 ## Run Info
 - Input file: input/sample_contract.txt
-- Date: 2026-11-14
-- Model: coordinator sonnet; sub-agents haiku
-- Sub-agents used: clause-agent, obligation-agent, risk-agent roles. The custom agent definitions in .claude/agents/ were not registered in this session, so each role ran as a haiku general-purpose agent with the agent file's instructions. They ran in parallel.
+- Date: 2026-11-16
+- Model: sonnet (coordinator); haiku (sub-agents)
+- Sub-agents used: clause-agent, obligation-agent, risk-agent
 
 ---
 GATE: FAIL
