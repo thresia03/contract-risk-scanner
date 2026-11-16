@@ -1,46 +1,50 @@
 # Validation Report — Contract Risk Scanner
 
-Subject: output/risk_report.md (run of input/sample_contract.txt, 2026-11-14), checked against input/sample_contract.txt, CLAUDE.md and coordinator.md.
+Subject: output/risk_report.md (run of input/sample_contract.txt, 2026-11-16), checked against input/sample_contract.txt, CLAUDE.md and coordinator.md.
 
 ## 1. Correctness — rating and any unsupported findings
-**Rating: Medium.** All excerpts are verbatim, party names and figures are correct, and the High rating and GATE: FAIL are supported by the contract. Several rows are over-classified or add interpretation the contract does not contain, which CLAUDE.md forbids.
+**Rating: High.** Every excerpt is verbatim, and all section references, figures, party names and the governing law are correct. Nothing is fabricated, and the High rating and `GATE: FAIL` are supported by the contract. The weaknesses are a few over-reaching severity or interpretation calls.
 
-Unsupported or overstated:
-- P1 "Late-payment interest (2.1)": the contract says "interest", never "penalty". Not a P1 finding on the text.
-- P1 "Vendor retention of improvements and derivative works (8)": the clause says "retains", not "assigns", so it does not fit the unilateral-assignment category.
-- P1 "Vendor liability with no stated cap (6.1)": the contract states neither a cap nor "uncapped"; "potentially very limited" is the report's own reading.
-- P2 "Customer data ownership ambiguity (5.1)": the claim that it "conflicts with" 5.2 and is "internally inconsistent" is unsupported; 5.1 and 5.2 agree that Vendor takes the data. High confidence is overstated.
-- P3 "Governing law (10)": "Cross-border enforcement may be harder to predict" is not in the contract.
-- P3 "Confidentiality survival (7)": "Information disclosed later may fall outside protection" is unclear and unsupported.
-- P3 "Non-refundable prepaid fees (4.3)": "even where Vendor is at fault" goes beyond the text.
-- P3 (4.1, 4.2): "short window to find a replacement" and "may limit Customer's ability to remedy" are commentary.
-- Key Obligations: Section 4.1 (termination for convenience) is a right, and Section 6.1 (Vendor's damages exclusion) is a limitation; neither is an obligation.
+Unsupported or interpretive:
+- P1 "Possible punitive penalty (late-payment interest, §2.1)": the contract states a 1.5% monthly rate and never calls it a penalty. The report itself admits "punitive" is a judgment, yet it sits in the P1 table.
+- P2 "Customer data ownership ambiguity (§5.1)": §5.1 is explicit ("retains no further rights", "irrevocably assigned"). Calling Customer's residual position undefined is interpretation, and the finding duplicates the P1 §5.1 finding.
+- §6.2 row: "so the regime is one-sided" is the report's own inference from §6.1 and §6.2.
+- §10 row: the "though Vendor is registered in England and Wales" contrast is the report's framing.
+- Critical Summary: "strike or rewrite §5.1" and "negotiate a cap" are advice, not contract content (CLAUDE.md: no interpretations not in the contract text).
+- Key Obligations, confidentiality (§7): paraphrased as "non-public information" without the contract's limit to information "marked confidential or would reasonably be understood to be confidential".
 
 ## 2. Completeness — gaps against the spec
-No required element is missing. Present: H1 title, Risk Rating, P1/P2/P3 tables with Clause type / Excerpt / Risk explanation / Confidence (value plus reason on every row), Key Obligations for both parties, Run Info (input file, date, model, sub-agents), and a final `GATE: FAIL`.
+No required element is missing. Present: H1 title with vendor name, Risk Rating, P1/P2/P3 tables with Clause type / Excerpt / Risk explanation / Confidence (value and reason on every row), Key Obligations for both parties, Run Info (input file, date, model, sub-agents) and a closing `GATE: FAIL`. The section order is correct.
 
 Deviations rather than gaps:
-- A Critical Summary paragraph is included that the spec does not define.
-- Four rows fall outside the P1/P2/P3 taxonomy: Section 11 assignment, Section 9 warranties, Section 4.3 prepaid refunds, Section 7 confidentiality survival.
-- Key Obligations omits the mutual no-assignment-without-consent duty (Section 11).
-- Obligation-agent and risk-agent have no table rows, so the Confidence column applies only to clause-agent output.
+- An extra `## Critical Summary` section sits outside the coordinator.md template and merge order.
+- Run Info has an extra "Coordinator edits" line. It records that a clause-agent finding (§6.1 "uncapped") was dropped and §5.2 was folded into §5.1, which conflicts with coordinator.md step 3, "do not rewrite or paraphrase any finding".
+- CLAUDE.md specifies three table columns and coordinator.md four. The report follows coordinator.md.
+- Content omissions: late-payment interest (§2.1) is not in Customer's obligations, and the 12-month Initial Term (§3.1) is not mentioned.
 
 ## 3. Robustness — broken-input result before the fix
-Test: `claude -p "Follow coordinator.md for input/broken_input.txt"`. The file does not exist (`input/` holds only `sample_contract.txt`).
-- The app did not crash and launched no sub-agents.
-- `output/risk_report.md` was left unchanged (identical checksum before and after).
-- The reply was free-form: it explained the file was missing and asked the user which option they wanted. The graceful behaviour came from model judgment, not from the spec, so the format was not guaranteed and nothing covered empty or non-contract files.
-- The empty/garbage-file case was not tested before the fix.
+Test: coordinator run on `input/broken_input.txt`, which holds a single line of gibberish (`zx9 ;;; ### ??? lorem 0000 <<>>`). An earlier run, when the file did not yet exist, was also checked.
+- The app did not crash. It launched no sub-agents and wrote nothing to `output/`, and the existing `output/risk_report.md` was left untouched.
+- The reply was the one-line `ERROR: input/broken_input.txt contains no recognisable contract language (no named parties, obligations or term).`
+- That was already graceful, but only because the model followed prose in coordinator.md step 0 and judged "recognisable contract language" itself. The reason text and the verdict were not guaranteed to be the same on every run, and nothing could be tested automatically.
 
 ## Issue Fixed — problem, change made, evidence from the re-run
-**Problem:** coordinator.md had no input validation. Behaviour on a missing, empty or non-contract file depended on model judgment, so a garbage file could lead to sub-agents inventing findings or a spurious `GATE: PASS`.
+**Problem:** input validation depended on model judgment. The same garbage, empty or borderline file could be accepted on one run and rejected on another. A wrongly accepted file would send sub-agents to invent findings, and could end in a spurious `GATE: PASS`.
 
-**Change made (coordinator.md, new Step 0):** validate the input first. If the file is missing, empty, or has no recognisable contract language (named parties, obligations, term), launch no sub-agents, write nothing to output/, and reply with exactly one line `ERROR: <reason>` with no GATE line.
+**Change made:**
+- Added `output/validate_input.py`, a read-only script. It checks that the file exists, is readable UTF-8 text, is non-empty, and contains at least 3 of 5 contract-language signals (agreement/contract, "shall", party wording, term/termination, payment). It prints `OK` or one `ERROR: <reason>` line and exits non-zero on failure.
+- Changed coordinator.md step 0 to run `python output/validate_input.py <input path>` and to stop with exactly its output line on failure.
+- The script lives in `output/` because a project hook, per CLAUDE.md, blocks writes outside that folder. coordinator.md was edited with your explicit approval.
 
-**Evidence from the re-run** (`output/risk_report.md` checksum unchanged in both runs; no sub-agents launched):
-- Missing file, `input/broken_input.txt` → `ERROR: input/broken_input.txt does not exist, so there is no contract to analyse.`
-- Garbage file (`output/_garbage_test.txt`, random text, created for the test and deleted afterwards) → `ERROR: input/output/_garbage_test.txt contains no recognisable contract language (no named parties, obligations, or term).`
+**Evidence from the re-run** (`output/risk_report.md` SHA-1 `5af30dc7…` was identical before and after all runs):
 
-**Result:** the missing-file case now returns a fixed one-line error instead of a free-form question, and the garbage-file case is rejected rather than analysed. The new behaviour is only checked on these two cases.
+| Input | Output | Exit |
+|---|---|---|
+| input/broken_input.txt | `ERROR: input/broken_input.txt contains no recognisable contract language (found 0 of 3 required signals: parties, obligations, term).` | 1 |
+| input/nope.txt (missing) | `ERROR: input/nope.txt does not exist or is not a file.` | 1 |
+| empty temp file | `ERROR: <path> is empty.` | 1 |
+| input/sample_contract.txt | `OK` | 0 |
 
-**Remaining caveat:** the garbage-file message printed the path as `input/output/_garbage_test.txt`, because the coordinator prefixed `input/` to the path given. The rejection is correct; the path shown in the message is not.
+**Result:** the verdict now comes from deterministic code. The error message is more specific, giving the signal count, and the real contract still passes. Behaviour on the garbage input is unchanged, because it was already rejected, but it is now repeatable and testable.
+
+**Caveats:** the keyword heuristic could wrongly accept non-contract prose that happens to use words like "party" and "shall", and could reject a very short real contract. Only the four cases above were tested. The coordinator step that calls the script was exercised by running the script directly, not by a full end-to-end agent run.

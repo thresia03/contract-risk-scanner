@@ -9,11 +9,12 @@ sections from the report, and add this line directly under Risk Rating:
 `Filter applied: --severity P1 (P2/P3 findings and Key Obligations omitted).`
 Without the flag, follow the steps below unchanged.
 ## Steps
-0. Validate the input BEFORE anything else. If the file is missing, empty,
-or contains no recognisable contract language (named parties, obligations,
-term), then: launch no sub-agents, write nothing to output/ (leave any existing
-report untouched), and reply with exactly one line
-`ERROR: <reason>` — no GATE line, no report. Otherwise continue.
+0. Validate the input BEFORE anything else by running
+`python output/validate_input.py <input path>` (Bash tool). Do not judge the file
+yourself. If it exits non-zero (missing, empty, or no recognisable contract
+language), then: launch no sub-agents, write nothing to output/ (leave any
+existing report untouched), and reply with exactly the one line it printed
+(`ERROR: <reason>`) — no GATE line, no report. If it prints `OK`, continue.
 1. Read the contract file once using the Read tool.
 2. In a single step, launch these three sub-agents IN PARALLEL.
 Pass each one the full contract text — they do not share your context:
